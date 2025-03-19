@@ -49,6 +49,9 @@ export default function Home() {
                 <input type="submit" value="Submit" id="submitButton"></input>
             </form>
             <p className="urlDesc">{short}</p>
+            <Suspense>
+            <SearchParamsComponent />
+            </Suspense>
         </div>
     );
 };
