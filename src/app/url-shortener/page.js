@@ -9,7 +9,8 @@ function SearchParamsComponent() {
     const vParam = searchParams.get("v"); // Get the "v" parameter from the URL
     useEffect(() => {
         if (vParam) {
-          window.location.href = `/url-shortener/api/shorturl/${vParam}`
+          //window.location.href = `/url-shortener/api/shorturl/${vParam}`
+          console.log("hello world");
         }
       }, [vParam]);
     return <></>

@@ -59,8 +59,16 @@ export async function GET(req, { params }) {
     console.log(value, "key");
     if (value) {
       //if it exists navigate to the page requested
-      const response = Response.redirect(value, 307);
-      return addCorsHeaders(response);
+      const response = new Response(null, {
+        status: 307,
+        headers: {
+          "Location": value,
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type",
+        },
+      });
+      return response;
     } else {
       //else throw error
       console.log("error num");
