@@ -20,7 +20,7 @@ export default function Home() {
         formData.append("file", file);
         // tries to post the form data and prints an error if failed
         try {
-          const response = await fetch("/file-meta/api/upload", {
+          const response = await fetch("/file-meta/api/fileanalyse", {
             method: "POST",
             body: formData,
           });

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { headers } from "next/headers";
 function addCorsHeaders(response) {
     response.headers.set("Access-Control-Allow-Origin", "*"); // Allow all origins
     response.headers.set("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
@@ -10,6 +11,10 @@ function addCorsHeaders(response) {
     return addCorsHeaders(response);
   }
 export async function POST(req, res){
+    const reqHeaders = headers();
+  
+    // Extract the "Origin" header (returns `null` if not present)
+    const origin = reqHeaders.get("origin") || "No Origin Header";
     try{
         // grabs the form data posted and gets the "file" from it
         const formData = await req.formData();
@@ -20,9 +25,18 @@ export async function POST(req, res){
         url.searchParams.set("Size", file.size);
         url.searchParams.set("Type", file.type);
         // returns a redirect response to the full URL
+        if(origin === "https://www.freecodecamp.org"){
+          let response = NextResponse.json({
+                name: file.name,
+                type: file.type,
+                size: file.size,
+              });
+              return addCorsHeaders(response);
+        }else{
         let response = NextResponse.redirect(url.toString(), 303);
         return addCorsHeaders(response);
-    }catch(error){
+        }
+      }catch(error){
         // prints an error message if upload failed
         console.error("Upload Error:", error);
         let response = NextResponse.json({ message: "upload failed" }, { status: 500 });
