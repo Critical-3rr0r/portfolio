@@ -16,6 +16,12 @@ async function listKeys(bucketKey) {
       return [];
     }
   }
+  function addCorsHeaders(response) {
+    response.headers.set("Access-Control-Allow-Origin", "*");
+    response.headers.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    response.headers.set("Access-Control-Allow-Headers", "Content-Type");
+    return response;
+  }
 export async function GET(req){
     const { searchParams } = new URL(req.url);
     const url = searchParams.get("url");
@@ -36,11 +42,13 @@ export async function GET(req){
         console.log(value, "key");
         if (value){
             //if it exists navigate to the page requested
-            return Response.redirect(value);
+            const response = Response.redirect(value);
+            return addCorsHeaders(response);
         }else{
             //else throw error
             console.log("error num");
-            return Response.json({"Error": "Invalid URL"});
+            const response = Response.json({"Error": "Invalid URL"});
+            return addCorsHeaders(response);
         }
     }
     //else check if url contains valid URL
@@ -70,13 +78,19 @@ export async function GET(req){
                 headers: { "Content-Type": "text/plain" },
                 body: url
             });
-            return Response.json({"original_url": url, "short_url" : lastKey+1});
+            const response = Response.json({"original_url": url, "short_url" : lastKey+1});
+            return addCorsHeaders(response);
         }else{
         //return key value pair in JSON format
-        return Response.json({"url": url, "shorturl" : check[0]?.[0]});
+        const response = Response.json({"url": url, "shorturl" : check[0]?.[0]});
+        return addCorsHeaders(response);
         }
     }else{
         console.log("other error");
-        return Response.json({"Error": "Invalid URL"});
+        const response = Response.json({"Error": "Invalid URL"});
+        return addCorsHeaders(response);
     }
 }
+ export async function OPTIONS() {
+    return addCorsHeaders(new Response(null, { status: 204 }));
+  }

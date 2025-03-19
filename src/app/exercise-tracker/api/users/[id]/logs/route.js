@@ -55,6 +55,12 @@ const client = new MongoClient(uri, {
         client.close();
     }
   }
+  function addCorsHeaders(response) {
+    response.headers.set("Access-Control-Allow-Origin", "*");
+    response.headers.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    response.headers.set("Access-Control-Allow-Headers", "Content-Type");
+    return response;
+  }
   export async function GET(req, { params }){
     //pull the id from the path params and the filters from the searchParams
     const { id } = await params;
@@ -79,5 +85,9 @@ const client = new MongoClient(uri, {
     };
     //get userInfo in the form of the logs object and return it in a JSON response
     const userInfo = await getLogs(id, filter);
-    return Response.json(userInfo);
+    let response = Response.json(userInfo);
+    return addCorsHeaders(response);
   };
+  export async function OPTIONS() {
+    return addCorsHeaders(new Response(null, { status: 204 }));
+  }

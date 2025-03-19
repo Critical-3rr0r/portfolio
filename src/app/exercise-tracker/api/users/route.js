@@ -49,6 +49,12 @@ async function getUsers() {
     await client.close();
   }
 }
+function addCorsHeaders(response) {
+  response.headers.set("Access-Control-Allow-Origin", "*");
+  response.headers.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  response.headers.set("Access-Control-Allow-Headers", "Content-Type");
+  return response;
+}
 export async function GET(req) {
   //call getUsers and return the users found
   const users = await getUsers();
@@ -62,5 +68,9 @@ export async function POST(req) {
   //get the userID requested by calling the createUser() script on the parsed username
   const user = await createUser(username);
   //return the user _id and username in JSON format for client side use
-  return Response.json({ _id: user, username: username });
+  let response = Response.json({ _id: user, username: username });
+  return addCorsHeaders(response);
+}
+export async function OPTIONS() {
+  return addCorsHeaders(new Response(null, { status: 204 }));
 }

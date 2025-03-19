@@ -31,6 +31,12 @@ const client = new MongoClient(uri, {
         await client.close();
     }
   }
+  function addCorsHeaders(response) {
+    response.headers.set("Access-Control-Allow-Origin", "*");
+    response.headers.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    response.headers.set("Access-Control-Allow-Headers", "Content-Type");
+    return response;
+  }
 export async function POST(req, { params }){
     //pull the id from the path params
     const { id } = await params;
@@ -43,5 +49,16 @@ export async function POST(req, { params }){
     //post the variables and get the username from the return
     const username = await addExercise(id, description, duration, date);
     //return a JSON response including all data gathered
-    return Response.json({username: username, description: description, duration: duration, date: new Date(date)?.toDateString(), id: id});
+    let response = Response.json({
+      username: username,
+      description: description,
+      duration: duration,
+      date: new Date(date)?.toDateString(),
+      id: id
+    });
+    
+    return addCorsHeaders(response);
+}
+export async function OPTIONS() {
+  return addCorsHeaders(new Response(null, { status: 204 }));
 }
