@@ -3,10 +3,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-export default function Home() {
-    const [url, setUrl] = useState(null);
-    const [short, setShort] = useState("Submit a url to get the shortURL here");
-    const router = useRouter();
+import { Suspense } from "react";
+export default function SearchParamsComponent() {
     const searchParams = useSearchParams();
     const vParam = searchParams.get("v"); // Get the "v" parameter from the URL
     useEffect(() => {
@@ -14,6 +12,14 @@ export default function Home() {
           window.location.href = `/url-shortener/api/shorturl/${vParam}`
         }
       }, [vParam]);
+    return <></>
+}
+export default function Home() {
+    const [url, setUrl] = useState(null);
+    const [short, setShort] = useState("Submit a url to get the shortURL here");
+    const router = useRouter();
+    
+    
     const handleUrlChange = (event) => {
         setUrl(event.target.value);
     }
