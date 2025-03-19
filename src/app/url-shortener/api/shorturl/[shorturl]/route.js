@@ -59,16 +59,25 @@ export async function GET(req, { params }) {
     console.log(value, "key");
     if (value) {
       //if it exists navigate to the page requested
-      const response = new Response(null, {
-        status: 308,
-        headers: {
-          "Location": value,
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-          "Access-Control-Allow-Headers": "Content-Type",
-        },
+      const redirectResponse = Response.redirect(value, 307);
+
+      // Clone response & add CORS headers
+      const corsHeaders = {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type",
+      };
+    
+      const newHeaders = new Headers(redirectResponse.headers);
+      for (const [key, val] of Object.entries(corsHeaders)) {
+        newHeaders.set(key, val);
+      }
+    
+      return new Response(redirectResponse.body, {
+        status: redirectResponse.status,
+        statusText: redirectResponse.statusText,
+        headers: newHeaders,
       });
-      return response;
     } else {
       //else throw error
       console.log("error num");
