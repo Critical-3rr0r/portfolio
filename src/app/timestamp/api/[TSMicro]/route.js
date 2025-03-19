@@ -11,6 +11,7 @@ export async function GET(req, { params }) {
 
   // Take the string representation of TSMicro for regex purposes
   const input = TSMicro?.toString();
+  console.log(input);
   const decodedDateStr = decodeURIComponent(TSMicro).replace(",", "");
   const unixDecode = new Date(decodedDateStr).getTime().toString();
   if (!TSMicro) {

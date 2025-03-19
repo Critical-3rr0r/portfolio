@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 export default function Home() {
     const [url, setUrl] = useState(null);
+    const [short, setShort] = useState("Submit a url to get the shortURL here");
     const router = useRouter();
     const handleUrlChange = (event) => {
         setUrl(event.target.value);
@@ -12,8 +13,17 @@ export default function Home() {
         if (!url){
             return;
         }
-        const fullUrl = "/url-shortener/api/shorturl?url=" + url;
-        router.push(fullUrl);
+        if(isNaN(Number(url))){
+            const response = await fetch("/url-shortener/api/shorturl?url=" + url, {
+                method: "POST"
+            });
+            const data = await response.json();
+            console.log(data);
+            setShort(data.short_url);
+        }else{
+            const fullUrl = "/url-shortener/api/shorturl?url=" + url;
+            router.push(fullUrl);
+        }
     };
     return (
         <div>
@@ -23,6 +33,7 @@ export default function Home() {
                 <input type="text" id="textInput" onChange={handleUrlChange} placeholder="https://yoururl.domain/anything OR shorturl#" required></input>
                 <input type="submit" value="Submit" id="submitButton"></input>
             </form>
+            <p className="urlDesc">{short}</p>
         </div>
     );
 };
