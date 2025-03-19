@@ -63,11 +63,11 @@ export async function GET(req, { params }) {
     if (value) {
 
       return new Response(null, {
-        status: 307, // Permanent Redirect
+        status: 308,
         headers: {
-          "Location": value.trim(),
+          "Location": `/url-shortener/redirect?to=${encodeURIComponent(value)}`,
           "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+          "Access-Control-Allow-Methods": "GET, OPTIONS",
           "Access-Control-Allow-Headers": "Content-Type",
         },
       });
