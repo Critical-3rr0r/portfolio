@@ -56,7 +56,7 @@ export async function POST(req, { params }){
       date: new Date(date)?.toDateString(),
       _id: id
     });
-    
+    console.log(response);
     return addCorsHeaders(response);
 }
 export async function OPTIONS() {
