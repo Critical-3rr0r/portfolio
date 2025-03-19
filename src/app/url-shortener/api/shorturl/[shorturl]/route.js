@@ -38,7 +38,7 @@ export async function GET(req, { params }) {
   //check if url contains number
   console.log(shorturl);
   if (!shorturl) {
-    const response = Response.json({ Error: "Invalid URL" });
+    const response = Response.json({ error: "invalid URL" });
     return addCorsHeaders(response);
   }
   const url = shorturl.toString();
@@ -58,12 +58,12 @@ export async function GET(req, { params }) {
     } else {
       //else throw error
       console.log("error num");
-      const response = Response.json({ Error: "Invalid URL" });
+      const response = Response.json({ error: "invalid URL" });
       return addCorsHeaders(response);
     }
   } else {
     console.log("other error");
-    const response = Response.json({ Error: "Invalid URL" });
+    const response = Response.json({ error: "invalid URL" });
     return addCorsHeaders(response);
   }
 }

@@ -73,12 +73,12 @@ export async function POST(req){
             return addCorsHeaders(response);
         }else{
         //return key value pair in JSON format
-        const response = Response.json({"url": url, "short_url" : check[0]?.[0]});
+        const response = Response.json({"original_url": url, "short_url" : check[0]?.[0]});
         return addCorsHeaders(response);
         }
     }else{
         console.log("other error");
-        const response = Response.json({"Error": "Invalid URL"});
+        const response = Response.json({"error": "invalid URL"});
         return addCorsHeaders(response);
     }
 }
