@@ -35,9 +35,9 @@ export default function Home() {
     }
     return (
         <div>
-            <form className="form" onSubmit={handleSubmit} name="upfile">
+            <form className="form" onSubmit={handleSubmit} >
                 <label>Please upload a file!</label>
-                <input type="file" id="fileInput" onChange={handleFileChange} required></input>
+                <input type="file" id="fileInput" name="upfile" onChange={handleFileChange} required></input>
                 <input type="submit" value="Submit" id="submitButton"></input>
             </form>
         </div>

@@ -19,9 +19,9 @@ export async function GET(req) {
     }
     // returns the name, type, and size in JSON format
     let response = NextResponse.json({
-      fileName,
-      fileType,
-      fileSize,
+      name:fileName,
+      type:fileType,
+      size:fileSize,
     });
     return addCorsHeaders(response);
   }

@@ -17,11 +17,18 @@ async function listKeys(bucketKey) {
     }
   }
   function addCorsHeaders(response) {
-    response.headers.set("Access-Control-Allow-Origin", "*");
-    response.headers.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-    response.headers.set("Access-Control-Allow-Headers", "Content-Type");
-    return response;
-  }
+    const corsHeaders = {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type",
+    };
+
+    return new Response(response.body, {
+        status: response.status,
+        statusText: response.statusText,
+        headers: new Headers({ ...Object.fromEntries(response.headers), ...corsHeaders }),
+    });
+}
 export async function GET(req){
     const { searchParams } = new URL(req.url);
     const url = searchParams.get("url");
