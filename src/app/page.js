@@ -3,7 +3,6 @@ import Image from "next/image";
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 function generateProjectLinks() { 
-    const router = useRouter();
     const projects = [
         {
             name: "Exercise Tracker",
@@ -38,7 +37,7 @@ function generateProjectLinks() {
             {projects.map((Obj, index) => {
                 return (
                     <div className="projectDiv" key={ index }>
-                        <img src={Obj.img} className="projectImage"></img>
+                        <Image src={Obj.img} alt="" fill className="projectImage"/>
                         <Link href={Obj.src} className="projectName ">
                             { Obj.name }
                         </Link>
