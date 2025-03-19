@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { Suspense } from "react";
-export default function SearchParamsComponent() {
+function SearchParamsComponent() {
     const searchParams = useSearchParams();
     const vParam = searchParams.get("v"); // Get the "v" parameter from the URL
     useEffect(() => {
