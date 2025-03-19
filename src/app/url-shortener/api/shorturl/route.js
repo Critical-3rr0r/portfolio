@@ -40,7 +40,7 @@ export async function POST(req){
     }
     console.log(url);
     
-    const urlregex = /^https:\/\/[\w-]+\.[\w-]+\.[\w-]+(?:\/[\w-]+)*$/;
+    const urlregex = /^https:\/\/[\w-]+\.[\w-]+\.[\w.-]+(?:\/[\w-]*)*(?:\?.*)?$/;
     //else check if url contains valid URL
     if (url.match(urlregex)){
         //Declare variables to use
