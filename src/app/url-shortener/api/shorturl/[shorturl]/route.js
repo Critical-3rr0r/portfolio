@@ -61,10 +61,11 @@ export async function GET(req, { params }) {
       .catch((error) => console.error(error));
     console.log(value, "key");
     if (value) {
+
       return new Response(null, {
         status: 308, // Permanent Redirect
         headers: {
-          "Location": value,
+          "Location": value.trim(),
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
           "Access-Control-Allow-Headers": "Content-Type",
