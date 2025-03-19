@@ -56,7 +56,8 @@ export async function POST(req, { params }){
       date: new Date(date)?.toDateString(),
       _id: id
     });
-    console.log(response);
+    const responseBody = await response.json();
+    console.log(responseBody);
     return addCorsHeaders(response);
 }
 export async function OPTIONS() {
