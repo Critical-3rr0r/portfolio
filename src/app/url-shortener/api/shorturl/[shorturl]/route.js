@@ -60,7 +60,7 @@ export async function GET(req, { params }) {
     if (value) {
       //if it exists navigate to the page requested
       const response = new Response(null, {
-        status: 307,
+        status: 308,
         headers: {
           "Location": value,
           "Access-Control-Allow-Origin": "*",
