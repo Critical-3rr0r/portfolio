@@ -1,10 +1,19 @@
 'use client';
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 export default function Home() {
     const [url, setUrl] = useState(null);
     const [short, setShort] = useState("Submit a url to get the shortURL here");
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const vParam = searchParams.get("v"); // Get the "v" parameter from the URL
+    useEffect(() => {
+        if (vParam) {
+          window.location.href = `/url-shortener/api/shorturl/${vParam}`
+        }
+      }, [vParam]);
     const handleUrlChange = (event) => {
         setUrl(event.target.value);
     }

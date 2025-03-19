@@ -1,4 +1,5 @@
 import KVdb from "kvdb.io";
+import { headers } from "next/headers";
 const bucket = KVdb.bucket("Rv5j9EuUoeRf6Hxf7qtidW");
 async function listKeys(bucketKey) {
   const url = `https://kvdb.io/${bucketKey}/?list`;
@@ -23,13 +24,18 @@ function addCorsHeaders(response) {
     "Access-Control-Allow-Headers": "Content-Type",
   };
 
+  // Clone existing headers to avoid immutability issues
+  const newHeaders = new Headers(response.headers);
+  
+  // Append CORS headers
+  for (const [key, value] of Object.entries(corsHeaders)) {
+    newHeaders.set(key, value);
+  }
+
   return new Response(response.body, {
     status: response.status,
     statusText: response.statusText,
-    headers: new Headers({
-      ...Object.fromEntries(response.headers),
-      ...corsHeaders,
-    }),
+    headers: newHeaders, // Use the modified headers
   });
 }
 export async function GET(req, { params }) {
@@ -53,7 +59,7 @@ export async function GET(req, { params }) {
     console.log(value, "key");
     if (value) {
       //if it exists navigate to the page requested
-      const response = Response.redirect(value);
+      const response = Response.redirect(value, 307);
       return addCorsHeaders(response);
     } else {
       //else throw error
