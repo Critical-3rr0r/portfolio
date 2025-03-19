@@ -38,6 +38,8 @@ export async function POST(req){
         const { searchParams } = new URL(req.url);
         url = searchParams.get("url");
     }
+    const urlObj = new URL(url);
+    const vParam = urlObj.searchParams.get("v");
     console.log(url);
     
     const urlregex = /^https:\/\/[\w-]+\.[\w-]+\.[\w.-]+(?:\/[\w-]*)*(?:\?.*)?$/;
@@ -64,6 +66,7 @@ export async function POST(req){
         console.log(check, "check");
         if (!check || check.length === 0 ){
             //else add key value pair and return the key
+            if(vParam === null){
             await fetch("https://kvdb.io/Rv5j9EuUoeRf6Hxf7qtidW/" + (lastKey + 1), {
                 method: "PUT",
                 headers: { "Content-Type": "text/plain" },
@@ -71,6 +74,15 @@ export async function POST(req){
             });
             const response = Response.json({"original_url": url, "short_url" : lastKey+1});
             return addCorsHeaders(response);
+            }else{
+                await fetch("https://kvdb.io/Rv5j9EuUoeRf6Hxf7qtidW/" + (vParam), {
+                    method: "PUT",
+                    headers: { "Content-Type": "text/plain" },
+                    body: url
+                });
+                const response = Response.json({"original_url": url, "short_url" : vParam});
+                return addCorsHeaders(response);  
+            }
         }else{
         //return key value pair in JSON format
         const response = Response.json({"original_url": url, "short_url" : check[0]?.[0]});
