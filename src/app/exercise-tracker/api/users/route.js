@@ -58,7 +58,8 @@ function addCorsHeaders(response) {
 export async function GET(req) {
   //call getUsers and return the users found
   const users = await getUsers();
-  return Response.json(users);
+  const response = Response.json(users);
+  return addCorsHeaders(response);
 }
 
 export async function POST(req) {
