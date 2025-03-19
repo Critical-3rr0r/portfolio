@@ -38,6 +38,9 @@ function addCorsHeaders(response) {
     headers: newHeaders, // Use the modified headers
   });
 }
+export async function OPTIONS() {
+  return addCorsHeaders(new Response(null, { status: 204 }));
+}
 export async function GET(req, { params }) {
   const { shorturl } = await params;
   const numregex = /^\d*$/;
@@ -78,7 +81,4 @@ export async function GET(req, { params }) {
     const response = Response.json({ error: "invalid URL" });
     return addCorsHeaders(response);
   }
-}
-export async function OPTIONS() {
-  return addCorsHeaders(new Response(null, { status: 204 }));
 }
