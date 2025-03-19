@@ -18,7 +18,7 @@ export async function POST(req, res){
     try{
         // grabs the form data posted and gets the "file" from it
         const formData = await req.formData();
-        const file = formData.get("file");
+        const file = formData.get("file") || formData.get("upfile");
         const url = new URL("/file-meta/api/upload-response", req.url);
         // adds serach parameters to the URL generated in order to process a get response later
         url.searchParams.set("Name", file.name);
