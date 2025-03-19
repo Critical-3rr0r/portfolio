@@ -63,7 +63,7 @@ export async function GET(req, { params }) {
     if (value) {
 
       return new Response(null, {
-        status: 308, // Permanent Redirect
+        status: 307, // Permanent Redirect
         headers: {
           "Location": value.trim(),
           "Access-Control-Allow-Origin": "*",
