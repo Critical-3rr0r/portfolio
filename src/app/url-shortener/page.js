@@ -21,7 +21,7 @@ export default function Home() {
             console.log(data);
             setShort(data.short_url);
         }else{
-            const fullUrl = "/url-shortener/api/shorturl?url=" + url;
+            const fullUrl = "/url-shortener/api/shorturl/" + url;
             router.push(fullUrl);
         }
     };

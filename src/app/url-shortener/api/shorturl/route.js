@@ -29,40 +29,7 @@ async function listKeys(bucketKey) {
         headers: new Headers({ ...Object.fromEntries(response.headers), ...corsHeaders }),
     });
 }
-export async function GET(req){
-    const { searchParams } = new URL(req.url);
-    const url = searchParams.get("url");
-    console.log(url);
-    
-    const urlregex = /^https:\/\/[\w-]+\.[\w-]+\.[\w-]+(?:\/[\w-]+)*$/;
-    const numregex = /^\d*$/;
-    //check if url contains number
-    console.log(url.match(urlregex), "url reg");
-    console.log(url.match(numregex), "nym reg");
-    if(url.match(numregex)){
-        //check if key exists
-        const value = await fetch("https://kvdb.io/Rv5j9EuUoeRf6Hxf7qtidW/" + url)
-        .then(response => response.text())
-        .then(data => {
-            return data;  
-        }).catch(error => console.error(error));
-        console.log(value, "key");
-        if (value){
-            //if it exists navigate to the page requested
-            const response = Response.redirect(value);
-            return addCorsHeaders(response);
-        }else{
-            //else throw error
-            console.log("error num");
-            const response = Response.json({"Error": "Invalid URL"});
-            return addCorsHeaders(response);
-        }
-    }else{
-        console.log("other error");
-        const response = Response.json({"Error": "Invalid URL"});
-        return addCorsHeaders(response);
-    }
-}
+
 export async function POST(req){
     const textBody = await req.text(); // Get raw body as text
     const params = new URLSearchParams(textBody); // Parse URL-encoded form data
