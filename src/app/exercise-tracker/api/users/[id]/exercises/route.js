@@ -50,14 +50,12 @@ export async function POST(req, { params }){
     const username = await addExercise(id, description, duration, date);
     //return a JSON response including all data gathered
     let response = Response.json({
-      username: username,
+      username: username.username,
       description: description,
       duration: duration,
       date: new Date(date)?.toDateString(),
       _id: id
     });
-    const responseBody = await response.json();
-    console.log(responseBody);
     return addCorsHeaders(response);
 }
 export async function OPTIONS() {
