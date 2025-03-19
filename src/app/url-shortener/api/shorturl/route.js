@@ -31,6 +31,7 @@ async function listKeys(bucketKey) {
 }
 export async function GET(req){
     const { searchParams } = new URL(req.url);
+    console.log(req);
     const url = searchParams.get("url");
     console.log(url);
     
