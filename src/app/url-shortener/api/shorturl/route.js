@@ -31,7 +31,6 @@ async function listKeys(bucketKey) {
 }
 export async function GET(req){
     const { searchParams } = new URL(req.url);
-    console.log(req);
     const url = searchParams.get("url");
     console.log(url);
     
@@ -67,6 +66,8 @@ export async function GET(req){
 export async function POST(req){
     const { searchParams } = new URL(req.url);
     const url = searchParams.get("url");
+    const body = await req.json();
+    console.log(body, "request body");
     console.log(url);
     
     const urlregex = /^https:\/\/[\w-]+\.[\w-]+\.[\w-]+(?:\/[\w-]+)*$/;
