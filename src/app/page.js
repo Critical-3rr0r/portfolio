@@ -6,28 +6,28 @@ function generateProjectLinks() {
     const router = useRouter();
     const projects = [
         {
-            name: "Timestamp",
-            img: null,
-            src: "/timestamp"
+            name: "Exercise Tracker",
+            img: "/images/exercise.png",
+            src: "/exercise-tracker"
         },
         {
-            name: "Request Header Parser",
-            img: null,
+            name: "WhoAmI",
+            img: "/images/who.png",
             src: "/request-parser"
         },
         {
             name: "URL shortener",
-            img: null,
+            img: "/images/url.png",
             src: "/url-shortener"
         },
         {
-            name: "Exercise Tracker",
-            img: null,
-            src: "/exercise-tracker"
+            name: "Timestamp",
+            img: "/images/time.png",
+            src: "/timestamp"
         },
         {
             name: "File Metadata",
-            img: null,
+            img: "/images/file.png",
             src: "/file-meta"
         }
     ];
@@ -39,7 +39,7 @@ function generateProjectLinks() {
                 return (
                     <div className="projectDiv" key={ index }>
                         <img src={Obj.img} className="projectImage"></img>
-                        <Link href={Obj.src} className="projectName shadow-lg bg-bermuda-950 hover:bg-bermuda-300">
+                        <Link href={Obj.src} className="projectName ">
                             { Obj.name }
                         </Link>
                     </div>
@@ -76,22 +76,23 @@ export default function Home() {
                 <div id="frontList">
                     <h3>Frontend Tech</h3>
                     <ul>
-                        <li>Next.js</li>
-                        <li>React</li>
-                        <li>HTML</li>
-                        <li>CSS</li>
+                        <li><a href="https://nextjs.org" target="_blank">Next.js</a></li>
+                        <li><a href='https://react.dev' target="_blank">React</a></li>
+                        <li><a href='https://developer.mozilla.org/en-US/docs/Web/HTML' target="_blank">HTML</a></li>
+                        <li><a href='https://developer.mozilla.org/en-US/docs/Web/CSS' target="_blank">CSS</a></li>
+                        <li><a href='https://developer.mozilla.org/en-US/docs/Web/JavaScript' target="_blank">JavaScript</a></li>
                     </ul>
                 </div>
                 <div id="backList">
                     <h3>Backend Tech</h3>
                     <ul>
-                        <li>PostgreSQL</li>
-                        <li>MongoDB</li>
-                        <li>Bash</li>
-                        <li>NPM</li>
-                        <li>Node.js</li>
-                        <li>Express</li>
-                        <li>Git</li>
+                        <li><a href='https://www.postgresql.org/docs/' target="_blank">PostgreSQL</a></li>
+                        <li><a href='https://www.mongodb.com/docs/' target="_blank">MongoDB</a></li>
+                        <li><a href='https://www.gnu.org/software/bash/manual/bash.html' target="_blank">Bash</a></li>
+                        <li><a href='https://docs.npmjs.com' target="_blank">NPM</a></li>
+                        <li><a href='https://nodejs.org/docs/latest/api/' target="_blank">Node.js</a></li>
+                        <li><a href='https://expressjs.com' target="_blank">Express</a></li>
+                        <li><a href='https://git-scm.com/doc' target="_blank">Git</a></li>
                     </ul>
                 </div>
             </div>

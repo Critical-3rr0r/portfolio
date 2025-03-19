@@ -1,28 +1,28 @@
+'use client';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 export default function Home() {
+    const [url, setUrl] = useState(null);
+    const router = useRouter();
+    const handleUrlChange = (event) => {
+        setUrl(event.target.value);
+    }
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        if (!url){
+            return;
+        }
+        const fullUrl = "/url-shortener/api/shorturl?url=" + url;
+        router.push(fullUrl);
+    };
     return (
         <div>
-            <div className="Header">
-                <div id="Home">
-                    <a>Home</a>
-                </div>
-                <div id="Title">
-                    <h1>
-                        Dalton Robinson
-                    </h1>
-                </div>
-                <div id="nav-bar">
-                    <a>About</a>
-                    <span className="spacer"> | </span>
-                    <a>Projects</a>
-                </div>
-            </div>
-            <div id="about">
-                <h2>About Me</h2>
-            </div>
-            <div id="projects">
-                <h1>HI</h1>
-                {generateProjectLinks()}
-            </div>
+            <form className="form" id="urlForm" onSubmit={handleSubmit} name="urlInput">
+                <h1>URL SHORTENER!</h1>
+                <label>Please input a URL</label>
+                <input type="text" id="textInput" onChange={handleUrlChange} placeholder="https://yoururl.domain/anything OR shorturl#" required></input>
+                <input type="submit" value="Submit" id="submitButton"></input>
+            </form>
         </div>
     );
 };
