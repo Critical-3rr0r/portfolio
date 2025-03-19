@@ -11,18 +11,22 @@ export async function GET(req, { params }) {
 
   // Take the string representation of TSMicro for regex purposes
   const input = TSMicro?.toString();
-
-  // Determine if a GET request is being made
+  const decodedDateStr = decodeURIComponent(TSMicro).replace(",", "");
+  const unixDecode = new Date(decodedDateStr).getTime().toString();
   if (!TSMicro) {
     const response = NextResponse.json({ error: "Please input a time" }, { status: 400 });
     return addCorsHeaders(response);
     }
 
   // Determine if the input string matches either yyyy-mm-dd or unix(ms) format
-  if (input.match(/(^[0-9]{4}-[0-9][0-9]-[0-9][0-9]$)|(^[0-9]{13})/)) {
+  if (input.match(/(^[0-9]{4}-[0-9][0-9]-[0-9][0-9]$)|(^[0-9]{13})/) || unixDecode.match(/(^[0-9]{4}-[0-9][0-9]-[0-9][0-9]$)|(^[0-9]{13})/)) {
     // Set the date value by determining if the value passed was UNIX or yyyy-mm-dd format
-    const date = isNaN(Number(TSMicro)) ? new Date(TSMicro) : new Date(Number(TSMicro));
-
+    let date;
+    if(unixDecode.match(/(^[0-9]{4}-[0-9][0-9]-[0-9][0-9]$)|(^[0-9]{13})/) && !isNaN(Number(unixDecode))){
+       date = new Date(Number(unixDecode));
+    }else{
+       date = isNaN(Number(TSMicro)) ? new Date(TSMicro) : new Date(Number(TSMicro));
+    }
     // Validate date instance
     if (isNaN(date.getTime())) {
       const response = NextResponse.json({ error: "Invalid Date" }, { status: 400 });
@@ -38,7 +42,7 @@ export async function GET(req, { params }) {
     }
 
   // Determine if the input is equal to a predetermined empty string and return current time
-  if (input === "empty") {
+  if (input === "") {
     const date = new Date();
     const response = NextResponse.json({ unix: date.getTime(), utc: date.toUTCString() });
     return addCorsHeaders(response);

@@ -9,7 +9,7 @@ export default function Timestamp() {
     const ButtonFunction = () => { 
         let value = input;
         if ( value == "" ) { 
-            value = "empty";
+            value = "";
             console.log(value);
         }
         router.push('timestamp/api/' + value);
