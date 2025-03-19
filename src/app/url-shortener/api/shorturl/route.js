@@ -109,6 +109,10 @@ export async function POST(req){
         const response = Response.json({"url": url, "short_url" : check[0]?.[0]});
         return addCorsHeaders(response);
         }
+    }else{
+        console.log("other error");
+        const response = Response.json({"Error": "Invalid URL"});
+        return addCorsHeaders(response);
     }
 }
  export async function OPTIONS() {
