@@ -64,10 +64,13 @@ export async function GET(req){
     }
 }
 export async function POST(req){
-    const { searchParams } = new URL(req.url);
-    const url = searchParams.get("url");
-    const body = await req.json();
-    console.log(body, "request body");
+    const textBody = await req.text(); // Get raw body as text
+    const params = new URLSearchParams(textBody); // Parse URL-encoded form data
+    let url = params.get("url");
+    if(!url){
+        const { searchParams } = new URL(req.url);
+        url = searchParams.get("url");
+    }
     console.log(url);
     
     const urlregex = /^https:\/\/[\w-]+\.[\w-]+\.[\w-]+(?:\/[\w-]+)*$/;
