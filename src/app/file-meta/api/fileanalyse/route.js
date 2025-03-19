@@ -11,10 +11,10 @@ function addCorsHeaders(response) {
     return addCorsHeaders(response);
   }
 export async function POST(req, res){
-    const reqHeaders = headers();
+    const reqHeaders = await headers();
   
     // Extract the "Origin" header (returns `null` if not present)
-    const origin = reqHeaders.get("origin") || "No Origin Header";
+    const origin = await reqHeaders.get("origin") || "No Origin Header";
     try{
         // grabs the form data posted and gets the "file" from it
         const formData = await req.formData();
