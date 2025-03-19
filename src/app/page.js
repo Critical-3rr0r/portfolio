@@ -37,7 +37,7 @@ function generateProjectLinks() {
             {projects.map((Obj, index) => {
                 return (
                     <div className="projectDiv" key={ index }>
-                        <Image src={Obj.img} alt="" fill className="projectImage"/>
+                        <img src={Obj.img} alt="" className="projectImage"/>
                         <Link href={Obj.src} className="projectName ">
                             { Obj.name }
                         </Link>
