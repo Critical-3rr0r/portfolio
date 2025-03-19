@@ -33,15 +33,15 @@ function addCorsHeaders(response) {
   });
 }
 export async function GET(req, { params }) {
-  const { url } = params;
-  console.log(url);
+  const { shorturl } = await params;
   const numregex = /^\d*$/;
   //check if url contains number
-  console.log(url.match(numregex), "nym reg");
-  if (!url) {
+  console.log(shorturl);
+  if (!shorturl) {
     const response = Response.json({ Error: "Invalid URL" });
     return addCorsHeaders(response);
   }
+  const url = shorturl.toString();
   if (url.match(numregex)) {
     //check if key exists
     const value = await fetch("https://kvdb.io/Rv5j9EuUoeRf6Hxf7qtidW/" + url)
