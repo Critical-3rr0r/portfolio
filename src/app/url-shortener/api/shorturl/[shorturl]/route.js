@@ -64,15 +64,7 @@ export async function GET(req, { params }) {
       const finalResponse = await fetch(value);
       const body = await finalResponse.text();
 
-      return new Response(body, {
-        status: finalResponse.status,
-        headers: {
-          "Content-Type": finalResponse.headers.get("Content-Type") || "text/html",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "GET, OPTIONS",
-          "Access-Control-Allow-Headers": "Content-Type",
-        },
-      });
+      return new Response.json({ redirected: true, url: value });
     } else {
       //else throw error
       console.log("error num");
