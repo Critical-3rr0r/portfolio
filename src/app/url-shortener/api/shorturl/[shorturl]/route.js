@@ -1,5 +1,6 @@
 import KVdb from "kvdb.io";
 import { headers } from "next/headers";
+import { redirect } from "next/dist/server/api-utils";
 const bucket = KVdb.bucket("Rv5j9EuUoeRf6Hxf7qtidW");
 async function listKeys(bucketKey) {
   const url = `https://kvdb.io/${bucketKey}/?list`;
@@ -47,7 +48,7 @@ export async function GET(req, { params }) {
   //check if url contains number
   console.log(shorturl);
   if (!shorturl) {
-    const response = Response.json({ error: "invalid URL" });
+    const response = await Response.json({ error: "invalid URL" });
     return addCorsHeaders(response);
   }
   const url = shorturl.toString();
@@ -61,17 +62,17 @@ export async function GET(req, { params }) {
       .catch((error) => console.error(error));
     console.log(value, "key");
     if (value) {
-      const response = Response.redirect(value, 301); // Redirect to "value" with status 301
+      const response = await Response.redirect(value, 301); // Redirect to "value" with status 301
       return addCorsHeaders(response);
     } else {
       //else throw error
       console.log("error num");
-      const response = Response.json({ error: "invalid URL" });
+      const response = await Response.json({ error: "invalid URL" });
       return addCorsHeaders(response);
     }
   } else {
     console.log("other error");
-    const response = Response.json({ error: "invalid URL" });
+    const response = await Response.json({ error: "invalid URL" });
     return addCorsHeaders(response);
   }
 }

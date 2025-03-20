@@ -1,5 +1,4 @@
 import KVdb from 'kvdb.io';
-const bucket = KVdb.bucket("Rv5j9EuUoeRf6Hxf7qtidW");
 async function listKeys(bucketKey) {
     const url = `https://kvdb.io/${bucketKey}/?list`;
   
@@ -42,7 +41,7 @@ export async function POST(req){
     const vParam = urlObj.searchParams.get("v");
     console.log(url);
     
-    const urlregex = /^https:\/\/[\w-]+\.[\w-]+\.[\w.-]+(?:\/[\w-]*)*(?:\?.*)?$/;
+    const urlregex = /^https?:\/\/([\w-]+\.)?[\w-]+\.[\w.-]+(?:\/[\w-]*)*(?:\?.*)?$/;
     //else check if url contains valid URL
     if (url.match(urlregex)){
         //Declare variables to use
@@ -72,7 +71,7 @@ export async function POST(req){
                 headers: { "Content-Type": "text/plain" },
                 body: url
             });
-            const response = Response.json({"original_url": url, "short_url" : lastKey+1});
+            const response = await Response.json({"original_url": url, "short_url" : lastKey+1});
             return addCorsHeaders(response);
             }else{
                 await fetch("https://kvdb.io/Rv5j9EuUoeRf6Hxf7qtidW/" + (vParam), {
@@ -80,17 +79,17 @@ export async function POST(req){
                     headers: { "Content-Type": "text/plain" },
                     body: url
                 });
-                const response = Response.json({"original_url": url, "short_url" : vParam});
+                const response = await Response.json({"original_url": url, "short_url" : vParam});
                 return addCorsHeaders(response);  
             }
         }else{
         //return key value pair in JSON format
-        const response = Response.json({"original_url": url, "short_url" : check[0]?.[0]});
+        const response = await Response.json({"original_url": url, "short_url" : check[0]?.[0]});
         return addCorsHeaders(response);
         }
     }else{
         console.log("other error");
-        const response = Response.json({"error": "invalid URL"});
+        const response = await Response.json({"error": "invalid URL"});
         return addCorsHeaders(response);
     }
 }
