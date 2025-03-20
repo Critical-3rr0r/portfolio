@@ -61,12 +61,11 @@ export async function GET(req, { params }) {
       .catch((error) => console.error(error));
     console.log(value, "key");
     if (value) {
-
       return new Response(null, {
         status: 308,
         headers: {
-          "Location": `/url-shortener/redirect?to=${encodeURIComponent(value)}`,
-          "Access-Control-Allow-Origin": "*",
+          "Location": value, // Redirect directly to the final URL
+          "Access-Control-Allow-Origin": "*", 
           "Access-Control-Allow-Methods": "GET, OPTIONS",
           "Access-Control-Allow-Headers": "Content-Type",
         },
