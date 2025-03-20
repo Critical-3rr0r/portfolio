@@ -64,7 +64,7 @@ export async function GET(req, { params }) {
       const finalResponse = await fetch(value);
       const body = await finalResponse.text();
 
-      return new Response.json({ redirected: true, url: value });
+      return new Response(JSON.stringify({ redirected: true, url: value }));
     } else {
       //else throw error
       console.log("error num");
