@@ -61,10 +61,8 @@ export async function GET(req, { params }) {
       .catch((error) => console.error(error));
     console.log(value, "key");
     if (value) {
-      const finalResponse = await fetch(value);
-      const body = await finalResponse.text();
-
-      return new Response(JSON.stringify({ redirected: true, url: value }));
+      const response = Response.redirect(value, 301); // Redirect to "value" with status 301
+      return addCorsHeaders(response);
     } else {
       //else throw error
       console.log("error num");
