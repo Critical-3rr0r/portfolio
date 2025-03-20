@@ -61,11 +61,14 @@ export async function GET(req, { params }) {
       .catch((error) => console.error(error));
     console.log(value, "key");
     if (value) {
-      return new Response(null, {
-        status: 308,
+      const finalResponse = await fetch(value);
+      const body = await finalResponse.text();
+
+      return new Response(body, {
+        status: finalResponse.status,
         headers: {
-          "Location": value, // Redirect directly to the final URL
-          "Access-Control-Allow-Origin": "*", 
+          "Content-Type": finalResponse.headers.get("Content-Type") || "text/html",
+          "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Methods": "GET, OPTIONS",
           "Access-Control-Allow-Headers": "Content-Type",
         },
