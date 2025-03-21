@@ -66,7 +66,7 @@ export async function GET(req, { params }) {
     console.log(value, "key");
     if (value) {
       return new Response(null, {
-        status: 301,
+        status: 307,
         headers: {
           Location: value,  // Correct redirect header
           "Access-Control-Allow-Origin": "*",
