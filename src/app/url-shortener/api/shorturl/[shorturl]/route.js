@@ -26,7 +26,8 @@ function addCorsHeaders(response) {
   };
 
   // Clone existing headers to avoid immutability issues
-  const newHeaders = new Headers(response.headers);
+  const clonedResponse = response.clone();
+  const newHeaders = new Headers(clonedResponse.headers);
   
   // Append CORS headers
   for (const [key, value] of Object.entries(corsHeaders)) {
@@ -62,7 +63,16 @@ export async function GET(req, { params }) {
       .catch((error) => console.error(error));
     console.log(value, "key");
     if (value) {
-      const response = await Response.redirect(value, 301); // Redirect to "value" with status 301
+      const response = new Response(
+        JSON.stringify({ redirected: true, url: value }),
+        {
+          status: 200, // ✅ Return 200 to avoid CORS issues
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      ); // Redirect to "value" with status 301
       return addCorsHeaders(response);
     } else {
       //else throw error
