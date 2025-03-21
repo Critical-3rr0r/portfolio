@@ -56,25 +56,22 @@ export async function GET(req, { params }) {
   if (url.match(numregex)) {
     //check if key exists
     const value = await fetch("https://kvdb.io/Rv5j9EuUoeRf6Hxf7qtidW/" + url)
-      .then((response) => response.text())
+      .then((response) => {
+        console.log(response);
+        return response.text();})
       .then((data) => {
         return data;
       })
       .catch((error) => console.error(error));
     console.log(value, "key");
     if (value) {
-      const response = new Response(
-        JSON.stringify({ redirected: true, url: value }),
-        {
-          status: 301, // ✅ Makes it a real redirect
-          headers: {
-            "Content-Type": "application/json",
-            "Location": value, // ✅ Keeps redirect info
-            "Access-Control-Allow-Origin": "*",
-          },
-        }
-      ); // Redirect to "value" with status 301
-      return addCorsHeaders(response);
+      return new Response(null, {
+        status: 301,
+        headers: {
+          Location: value,  // Correct redirect header
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
     } else {
       //else throw error
       console.log("error num");
