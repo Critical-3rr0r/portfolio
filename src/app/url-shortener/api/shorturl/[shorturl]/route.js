@@ -66,9 +66,10 @@ export async function GET(req, { params }) {
       const response = new Response(
         JSON.stringify({ redirected: true, url: value }),
         {
-          status: 200, // ✅ Return 200 to avoid CORS issues
+          status: 301, // ✅ Makes it a real redirect
           headers: {
             "Content-Type": "application/json",
+            "Location": value, // ✅ Keeps redirect info
             "Access-Control-Allow-Origin": "*",
           },
         }
