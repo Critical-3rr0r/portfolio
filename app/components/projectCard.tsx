@@ -24,7 +24,7 @@ export default function ProjectCard({image, name, link, description, underConstr
             {showDesc ? <p className="text-center self-center">{description}</p> : <Image src={image} alt={`${name} image`} width={600} height={600} className="rounded-lg" /> }
             <p className="text-center text-black/50 italic">Click to show/hide description</p>
         </div>
-        <button className={`text-center text-xl bg-sky-400 p-2 w-50 rounded-full transition-all duration-300 md:hover:bg-sky-500 md:hover:scale-110 md:hover:shadow-lg ${underConstruction ? "disabled cursor-not-allowed" : "cursor-pointer"}`} style={{touchAction: "manipulation"}} onClick={() => {router.push(link); alert("clicked")}}>{underConstruction ? "Under Construction" : "Visit"}</button>
+        <button className={`text-center text-xl bg-sky-400 p-2 w-50 rounded-full transition-all duration-300 md:hover:bg-sky-500 md:hover:scale-110 md:hover:shadow-lg ${underConstruction ? "disabled cursor-not-allowed" : "cursor-pointer"}`} style={{touchAction: "manipulation"}} onClick={() => {router.push(link)}}>{underConstruction ? "Under Construction" : "Visit"}</button>
     </div>
     )
 }
