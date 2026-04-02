@@ -1,10 +1,9 @@
-"use client"
 import Image from "next/image";
 import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Quantico } from "next/font/google";
-import { motion } from "framer-motion";
 import ProjectCard from "./components/projectCard";
+import Overview from "./components/overview";
   const quantico = Quantico({
     weight: ["400", "700"],
     style: ["normal", "italic"],
@@ -33,33 +32,12 @@ export default function Home() {
       underConstruction: true
     }
   ]
-  const frontEndStack = ["Next.js", "React", "Tailwind", "Typescript"]
-  const backEndStack = ["Node.js", "MongoDB", "Firebase", "Cloudinary", "Postgres"]
+
   return(
     <div className="bg-[url(/images/stars.jpg)] bg-cover w-full min-h-screen h-full flex flex-col items-center">  
-        <div className="bg-linear-to-b from-slate-950/50 via-sky-900/75 to-sky-600/90 justify-center w-full md:w-full flex flex-col md:flex-row md:gap-100 max-h-screen h-screen overflow-hidden">
-          <div className="self-center">
-            <motion.h1 animate={{opacity: [0, 100], scale: [0, 1.2]}} transition={{duration: 1.5, ease: "easeInOut"}} className={`text-4xl md:text-5xl self-center ${quantico.className} underline decoration-sky-300`}>Dalton Robinson</motion.h1>
-            <motion.h2 animate={{opacity:[0, 100]}} transition={{duration: 1.5, delay: 1.5}} className={`text-center mt-5 text-xl md:text-2xl ${quantico.className}`}>Full Stack Web Developer</motion.h2>
-          </div>
-          
-          <motion.div animate={{y: [-1000, 50, 0]}} transition={{duration: 1.5, delay: 1.5}} className={`flex flex-col self-center gap-5 pt-10 items-center text-xl md:text-2xl ${quantico.className}`}>
-            <h2 className="text-3xl md:text-4xl">Tech Stack</h2>
-            <h3 className="border-b-2 text-2xl md:text-3xl font-bold">Frontend</h3>
-            <ol className="flex flex-col items-center text-lg md:text-xl gap-2">
-              {frontEndStack.map((item, index) => {
-                return(<li key={index}>{item}</li>)
-              })}
-            </ol>
-            <h3 className="border-b-2 text-2xl md:text-3xl font-bold">Backend</h3>
-            <ol className="flex flex-col items-center text-xl gap-2">
-              {backEndStack.map((item, index) => {
-                return(<li key={index}>{item}</li>)
-              })}
-            </ol>
-          </motion.div>
-      
-      </div>
+        <div className="bg-linear-to-b from-slate-950/50 via-sky-900/75 to-sky-600/90 justify-center w-full md:w-full  max-h-screen h-screen overflow-hidden">
+          <Overview />
+        </div>
       <div className={`bg-linear-to-b/shorter from-sky-600/90 via-sky-400 to-sky-300 h-full w-full flex flex-col ${quantico.className}`}>
         <h2 className="text-5xl text-center">My Projects</h2>
         <div className="h-150 w-full md:w-3/4 flex flex-row items-center self-center px-10 gap-5 overflow-x-scroll">
