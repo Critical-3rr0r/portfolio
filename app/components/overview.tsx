@@ -9,7 +9,7 @@ export default function Overview(){
     const frontEndStack = ["Next.js", "React", "Tailwind", "Typescript"]
     const backEndStack = ["Node.js", "MongoDB", "Firebase", "Cloudinary", "Postgres"]
     return(
-        <div className="h-full w-full flex flex-col md:flex-row items-center justify-center md:gap-100 text-black">
+        <div className="h-full w-full flex flex-col md:flex-row items-center justify-center md:gap-100 text-white">
           <div className="self-center">
             <motion.h1 animate={{opacity: [0, 100], scale: [0, 1.2]}} transition={{duration: 1.5, ease: "easeInOut"}} className={`text-4xl md:text-5xl self-center ${quantico.className} underline decoration-sky-300`}>Dalton Robinson</motion.h1>
             <motion.h2 animate={{opacity:[0, 100]}} transition={{duration: 1.5, delay: 1.5}} className={`text-center mt-5 text-xl md:text-2xl ${quantico.className}`}>Full Stack Web Developer</motion.h2>
