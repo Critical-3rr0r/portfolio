@@ -34,7 +34,7 @@ export default function Home() {
   ]
 
   return(
-    <div className="bg-[url(/images/stars.jpg)] bg-cover w-full min-h-screen h-full flex flex-col items-center">  
+    <div className="bg-[url(/images/stars.jpg)] bg-cover w-full min-h-screen h-full flex flex-col items-center text-black">  
         <div className="bg-linear-to-b from-slate-950/50 via-sky-900/75 to-sky-600/90 justify-center w-full md:w-full  max-h-screen h-screen overflow-hidden">
           <Overview />
         </div>
