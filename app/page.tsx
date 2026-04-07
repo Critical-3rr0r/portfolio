@@ -30,6 +30,13 @@ export default function Home() {
       link: "",
       description: "An ecommerce platform built for my family with both client facing and admin utilities. JWT protected routes and API with shopify powered checkout",
       underConstruction: true
+    },
+    {
+      image: "/images/DirectLane.png",
+      name: "DirectLane Logistics",
+      link: "https://directlane-logistics.vercel.app",
+      description: "A lead generation site for DirectLane Logistics LLC",
+      underConstruction: false
     }
   ]
 
